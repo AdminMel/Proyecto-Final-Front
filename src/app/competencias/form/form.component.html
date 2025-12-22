@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Nueva Competencia</h4>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="save()">
+
+          <div class="mb-3">
+            <label class="form-label">Fecha (ISO)</label>
+            <input class="form-control" formControlName="fecha" placeholder="2025-12-22T18:49:02.734Z">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Liga</label>
+            <select class="form-control" formControlName="ligaId">
+              <option [ngValue]="null">-- Selecciona liga --</option>
+              <option *ngFor="let l of ligas" [ngValue]="l.id">{{ l.nombre }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Equipo Local</label>
+            <select class="form-control" formControlName="equipoLocalId">
+              <option [ngValue]="null">-- Selecciona equipo --</option>
+              <option *ngFor="let e of equipos" [ngValue]="e.id">{{ e.nombre }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Equipo Visitante</label>
+            <select class="form-control" formControlName="equipoVisitanteId">
+              <option [ngValue]="null">-- Selecciona equipo --</option>
+              <option *ngFor="let e of equipos" [ngValue]="e.id">{{ e.nombre }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Goles Local</label>
+            <input type="number" class="form-control" formControlName="golesLocal">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Goles Visitante</label>
+            <input type="number" class="form-control" formControlName="golesVisitante">
+          </div>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" formControlName="finalizado" id="fin">
+            <label class="form-check-label" for="fin">Finalizado</label>
+          </div>
+
+          <button class="btn btn-primary" [disabled]="loading">
+            {{ loading ? 'Guardando...' : 'Guardar' }}
+          </button>
+          <a class="btn btn-secondary ms-2" routerLink="/competencias">Cancelar</a>
+
+        </form>
+      </div>
+      <div class="alert alert-danger" *ngIf="form.errors?.['equiposIguales']">
+            El equipo local y visitante no pueden ser el mismo.
+            </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="row" *ngIf="equipo">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="card-title mb-0">Detalle de Equipo</h4>
+        <div>
+          <a class="btn btn-warning me-2" [routerLink]="['/equipos', equipo.id, 'edit']">Editar</a>
+          <a class="btn btn-secondary" routerLink="/equipos">Volver</a>
+        </div>
+      </div>
+
+      <div class="card-body">
+        <p><strong>ID:</strong> {{ equipo.id }}</p>
+        <p><strong>Nombre:</strong> {{ equipo.nombre }}</p>
+        <p><strong>Liga:</strong> {{ equipo.ligaNombre ?? '-' }} ({{ equipo.ligaId ?? 'null' }})</p>
+        <p><strong>Entrenador:</strong> {{ equipo.entrenadorNombre ?? '-' }} ({{ equipo.entrenadorId ?? 'null' }})</p>
+        <p><strong>Partidos ganados:</strong> {{ equipo.partidosGanados }}</p>
+      </div>
+    </div>
+  </div>
+</div>

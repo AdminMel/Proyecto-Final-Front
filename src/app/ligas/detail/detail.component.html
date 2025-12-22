@@ -1,0 +1,18 @@
+<div class="row" *ngIf="liga">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Detalle de Liga</h4>
+      </div>
+
+      <div class="card-body">
+        <p><strong>ID:</strong> {{ liga.id }}</p>
+        <p><strong>Nombre:</strong> {{ liga.nombre }}</p>
+        <p><strong>Descripción:</strong> {{ liga.descripcion }}</p>
+
+        <a class="btn btn-warning" [routerLink]="['/ligas', liga.id, 'edit']">Editar</a>
+        <a class="btn btn-secondary ms-2" routerLink="/ligas">Volver</a>
+      </div>
+    </div>
+  </div>
+</div>

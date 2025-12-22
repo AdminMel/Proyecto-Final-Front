@@ -1,0 +1,35 @@
+<div class="row" *ngIf="competencia">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Actualizar Resultado</h4>
+      </div>
+
+      <div class="card-body">
+        <p><strong>Partido:</strong> {{ competencia.equipoLocalNombre }} vs {{ competencia.equipoVisitanteNombre }}</p>
+
+        <form [formGroup]="form" (ngSubmit)="save()">
+          <div class="mb-3">
+            <label class="form-label">Goles Local</label>
+            <input type="number" class="form-control" formControlName="golesLocal">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Goles Visitante</label>
+            <input type="number" class="form-control" formControlName="golesVisitante">
+          </div>
+
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="checkbox" formControlName="finalizado" id="fin2">
+            <label class="form-check-label" for="fin2">Finalizado</label>
+          </div>
+
+          <button class="btn btn-primary" [disabled]="loading">
+            {{ loading ? 'Guardando...' : 'Guardar' }}
+          </button>
+          <a class="btn btn-secondary ms-2" routerLink="/competencias">Cancelar</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
