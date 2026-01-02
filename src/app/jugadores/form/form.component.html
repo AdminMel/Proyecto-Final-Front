@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">{{ id ? 'Editar Jugador' : 'Nuevo Jugador' }}</h4>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="save()">
+
+          <div class="mb-3">
+            <label class="form-label">Nombre</label>
+            <input class="form-control" formControlName="nombre">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Edad</label>
+            <input type="number" class="form-control" formControlName="edad">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Posición</label>
+            <input class="form-control" formControlName="posicion">
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Equipo</label>
+            <select class="form-control" formControlName="equipoId">
+              <option [ngValue]="null">-- Sin equipo --</option>
+              <option *ngFor="let e of equipos" [ngValue]="e.id">{{ e.nombre }}</option>
+            </select>
+          </div>
+
+          <button class="btn btn-primary" [disabled]="loading">
+            {{ loading ? 'Guardando...' : 'Guardar' }}
+          </button>
+          <a class="btn btn-secondary ms-2" routerLink="/jugadores">Cancelar</a>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
