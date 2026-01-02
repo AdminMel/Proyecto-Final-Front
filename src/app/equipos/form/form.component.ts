@@ -57,20 +57,31 @@ export class FormComponent {
   }
 
   save() {
-    if (this.form.invalid) return;
-    this.loading = true;
+  if (this.form.invalid) return;
+  this.loading = true;
 
-    const body: any = {
-      nombre: this.form.value.nombre!,
-      ligaId: this.form.value.ligaId!,
-      entrenadorId: this.form.value.entrenadorId ?? null,
-    };
+  // ✅ Body EXACTO como Swagger
+  const body: any = {
+    nombre: this.form.value.nombre!,
+    ligaId: this.form.value.ligaId!,
+    entrenadorId: this.form.value.entrenadorId ?? null
+  };
 
-    const req = this.id ? this.svc.update(this.id, body) : this.svc.create(body);
-
-    req.subscribe({
+  // ✅ CREATE: sin partidosGanados
+  if (!this.id) {
+    this.svc.create(body).subscribe({
       next: () => { this.loading = false; this.router.navigate(['/equipos']); },
       error: () => { this.loading = false; }
     });
+    return;
   }
+
+  // ✅ UPDATE: si tu API permite actualizar más campos, mantenemos lo que ya venga
+  // (si en tu API update también NO acepta partidosGanados, lo quitamos igual)
+  this.svc.update(this.id, body).subscribe({
+    next: () => { this.loading = false; this.router.navigate(['/equipos']); },
+    error: () => { this.loading = false; }
+  });
+}
+
 }
