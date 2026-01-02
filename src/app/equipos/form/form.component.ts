@@ -57,31 +57,41 @@ export class FormComponent {
   }
 
   save() {
-  if (this.form.invalid) return;
-  this.loading = true;
+    if (this.form.invalid) return;
+    this.loading = true;
 
-  // ✅ Body EXACTO como Swagger
-  const body: any = {
-    nombre: this.form.value.nombre!,
-    ligaId: this.form.value.ligaId!,
-    entrenadorId: this.form.value.entrenadorId ?? null
-  };
+    const ligaId = Number(this.form.value.ligaId);
 
-  // ✅ CREATE: sin partidosGanados
-  if (!this.id) {
-    this.svc.create(body).subscribe({
-      next: () => { this.loading = false; this.router.navigate(['/equipos']); },
-      error: () => { this.loading = false; }
+    // OJO: si viene null/'' => undefined, y NO se envía al backend
+    const entrenadorIdRaw = this.form.value.entrenadorId;
+    const entrenadorId =
+      entrenadorIdRaw === null || entrenadorIdRaw === undefined || entrenadorIdRaw === ('' as any)
+        ? undefined
+        : Number(entrenadorIdRaw);
+
+    const body: any = {
+      nombre: this.form.value.nombre!,
+      ligaId: ligaId
+    };
+
+    // ✅ sólo agrega entrenadorId si existe
+    if (entrenadorId !== undefined && !Number.isNaN(entrenadorId)) {
+      body.entrenadorId = entrenadorId;
+    }
+
+    const req$ = this.id
+      ? this.svc.update(this.id, body)
+      : this.svc.create(body);
+
+    req$.subscribe({
+      next: () => {
+        this.loading = false;
+        this.router.navigate(['/equipos']);
+      },
+      error: (err) => {
+        console.error('ERROR CREAR/EDITAR EQUIPO:', err);
+        this.loading = false;
+      }
     });
-    return;
   }
-
-  // ✅ UPDATE: si tu API permite actualizar más campos, mantenemos lo que ya venga
-  // (si en tu API update también NO acepta partidosGanados, lo quitamos igual)
-  this.svc.update(this.id, body).subscribe({
-    next: () => { this.loading = false; this.router.navigate(['/equipos']); },
-    error: () => { this.loading = false; }
-  });
-}
-
 }
