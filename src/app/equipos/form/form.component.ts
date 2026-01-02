@@ -26,7 +26,6 @@ export class FormComponent {
     nombre: ['', Validators.required],
     ligaId: [null as number | null, Validators.required],
     entrenadorId: [null as number | null],
-    partidosGanados: [0, [Validators.required, Validators.min(0)]]
   });
 
   constructor(
@@ -53,7 +52,6 @@ export class FormComponent {
         nombre: e.nombre,
         ligaId: e.ligaId,
         entrenadorId: e.entrenadorId,
-        partidosGanados: e.partidosGanados
       })
     });
   }
