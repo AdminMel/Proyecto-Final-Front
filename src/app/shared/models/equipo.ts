@@ -7,6 +7,4 @@ export interface Equipo {
 
   entrenadorId: number | null;
   entrenadorNombre?: string | null;
-
-  partidosGanados: number;
 }
