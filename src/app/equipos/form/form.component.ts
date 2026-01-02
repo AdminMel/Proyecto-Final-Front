@@ -66,7 +66,6 @@ export class FormComponent {
       nombre: this.form.value.nombre!,
       ligaId: this.form.value.ligaId!,
       entrenadorId: this.form.value.entrenadorId ?? null,
-      partidosGanados: this.form.value.partidosGanados ?? 0
     };
 
     const req = this.id ? this.svc.update(this.id, body) : this.svc.create(body);
