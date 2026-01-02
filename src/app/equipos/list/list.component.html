@@ -27,7 +27,6 @@
                 <td>{{ e.nombre }}</td>
                 <td>{{ e.ligaNombre ?? '-' }}</td>
                 <td>{{ e.entrenadorNombre ?? '-' }}</td>
-                <td>{{ e.partidosGanados }}</td>
                 <td>
                   <a class="btn btn-sm btn-info me-1" [routerLink]="['/equipos', e.id]">Ver</a>
                   <a class="btn btn-sm btn-warning me-1" [routerLink]="['/equipos', e.id, 'edit']">Editar</a>
